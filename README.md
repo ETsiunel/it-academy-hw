@@ -1,1 +1,2 @@
-# homework-3-git
+# pymar2024
+Python test automation course
