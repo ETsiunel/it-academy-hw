@@ -1,4 +1,8 @@
+"""Module providing a function printing text."""
+
+
 def main():
+    """Function printing text."""
     print("Hello world!")
 
 
