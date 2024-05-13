@@ -1,3 +1,6 @@
+"""Homework 5"""
+
+
 # Заменить символ “#” на символ “/” в строке 'www.my_site.com#about'
 A = "www.my_site.com#about"
 print(A.replace("#", "/"))
