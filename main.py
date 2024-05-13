@@ -8,7 +8,7 @@ def main():
 
 if __name__ == "__main__":
     main()
- язакатаю, 
+    
 # Заменить символ “#” на символ “/” в строке 'www.my_site.com#about'
 A = "www.my_site.com#about"
 print(A.replace("#", "/"))
