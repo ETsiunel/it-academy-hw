@@ -1,14 +1,19 @@
 """Быки и коровы"""
 # В классическом варианте игра рассчитана на двух игроков.
-# Каждый из игроков задумывает и записывает тайное 4-значное число с неповторяющимися цифрами.
+# Каждый из игроков задумывает и записывает тайное 4-значное число
+# с неповторяющимися цифрами.
 # Игрок, который начинает игру по жребию, делает первую попытку отгадать число.
-# Попытка — это 4-значное число с неповторяющимися цифрами, сообщаемое противнику.
-# Противник сообщает в ответ, сколько цифр угадано без совпадения с их позициями в тайном числе
-#   (то есть количество коров) и сколько угадано вплоть до позиции в тайном числе
+# Попытка — это 4-значное число с неповторяющимися цифрами,
+# сообщаемое противнику.
+# Противник сообщает в ответ,
+# сколько цифр угадано без совпадения с их позициями в тайном числе
+#   (то есть количество коров)
+#   и сколько угадано вплоть до позиции в тайном числе
 #   (то есть количество быков).
 #   При игре против компьютера игрок вводит комбинации одну за другой,
 #   пока не отгадает всю последовательность.
-#   Ваша задача реализовать программу, против которой можно сыграть в "Быки и коровы"
+#   Ваша задача реализовать программу,
+#   против которой можно сыграть в "Быки и коровы"
 # Пример
 # Загадано
 # 2310
@@ -28,16 +33,18 @@ def computer_number_check(computer_number):
 
 
 # Генерация случайного 4-х значного числа
-computer_number = []  # число загаданное компьютером
+computer_number = 0  # число загаданное компьютером
 while not computer_number_check(computer_number):
     computer_number = random.randint(1000, 9999)
-# print(f"Computer number: {computer_number}")  # secret information, just debug print
+print(f"Computer number: {computer_number}")
+# secret information, just debug print
 print("Computer generated a number for you. Try to guess!")
 
 
 def player_number_check():
     """Проверка ответа пользователя на уникальность цифр"""
-    player_number = int(input("Enter your number (should contain only uniq digits): "))
+    player_number = int(input("Enter your number "
+                              "(should contain only uniq digits): "))
     player_number_list = list(str(player_number))
     if len(set(player_number_list)) == 4:
         return player_number
@@ -73,7 +80,8 @@ print("Congratulation!", player_number, "is correct answer")
 
 
 # # # # Пирамида # # # #
-# Мы можем визуализировать художественную пирамиду ASCII с N уровнями, напечатав N рядов звездочек,
+# Мы можем визуализировать художественную пирамиду ASCII с N уровнями,
+# напечатав N рядов звездочек,
 # где верхний ряд имеет одну звездочку в центре,
 # а каждый последующий ряд имеет две дополнительные звездочки с каждой стороны.
 # Вот как это выглядит, когда N равно 3.
@@ -86,9 +94,11 @@ print("Congratulation!", player_number, "is correct answer")
 #   *****
 #  *******
 # *********
-# Необходимо написать программу, которая генерирует такую пирамиду со значением N, равным 10
+# Необходимо написать программу, которая генерирует такую пирамиду
+# со значением N, равным 10
 
 pyramid = int(input("Enter pyramid level: "))
+# for level in range(pyramid):
 for level in range(pyramid):
     print(' ' * (pyramid-level-1) + '*' * (level*2+1))
 
@@ -108,10 +118,10 @@ for level in range(pyramid):
 gift = [6, 2, 3, 8]
 new_gift = list(range(min(gift), max(gift)+1))
 # print(new_gift)
-additional_statues = 0
+ADDITIONAL_STATUES = 0
 missed_elements = []
 for i in new_gift:
     if i not in gift:
-        additional_statues += 1
+        ADDITIONAL_STATUES += 1
         missed_elements.append(i)
-print(additional_statues, 'missing statues with numbers', missed_elements)
+print(ADDITIONAL_STATUES, 'missing statues with numbers', missed_elements)
