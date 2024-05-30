@@ -21,6 +21,8 @@
 # 3219
 # Вы выиграли!
 
+# pylint: disable=invalid-name
+
 import random
 
 
@@ -117,10 +119,10 @@ for level in range(pyramid):
 gift = [6, 2, 3, 8]
 new_gift = list(range(min(gift), max(gift)+1))
 # print(new_gift)
-ADDITIONAL_STATUES = 0
+missed_elements_count = 0
 missed_elements = []
 for i in new_gift:
     if i not in gift:
-        ADDITIONAL_STATUES += 1
+        missed_elements_count += 1
         missed_elements.append(i)
-print(ADDITIONAL_STATUES, 'missing statues with numbers', missed_elements)
+print(missed_elements_count, 'missing statues with numbers', missed_elements)
