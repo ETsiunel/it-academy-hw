@@ -21,8 +21,6 @@ import random
 # Две коровы, один бык
 # 3219
 # Вы выиграли!
-# pylint: disable=invalid-name
-# pylint: disable=line-too-long
 
 
 def computer_number_check(computer_number):
@@ -37,7 +35,7 @@ def computer_number_check(computer_number):
 comp_numb_gen = 0  # число загаданное компьютером
 while not computer_number_check(comp_numb_gen):
     comp_numb_gen = random.randint(1000, 9999)
-# print(f"Computer number: {comp_numb_gen}")
+print(f"Computer number: {comp_numb_gen}")
 # just debug print
 print("Computer generated a number for you. Try to guess!")
 
