@@ -3,10 +3,11 @@ import random
 
 # # # Быки и коровы # # #
 # В классическом варианте игра рассчитана на двух игроков.
-# Каждый из игроков задумывает и записывает тайное 4-значное число с неповторяющимися цифрами.
+# Каждый из игроков задумывает и записывает тайное
+# 4-значное число с неповторяющимися цифрами.
 # Игрок, который начинает игру по жребию, делает первую попытку отгадать число.
-# Попытка — это 4-значное число с неповторяющимися цифрами, сообщаемое противнику.
-# Противник сообщает в ответ,
+# Попытка — это 4-значное число с неповторяющимися цифрами,
+# сообщаемое противнику. Противник сообщает в ответ,
 # сколько цифр угадано без совпадения с их позициями в тайном числе
 # (то есть количество коров) и сколько угадано вплоть до позиции в тайном числе
 # (то есть количество быков).
@@ -33,17 +34,18 @@ def computer_number_check(computer_number):
 
 
 # Генерация случайного 4-х значного числа
-computer_number_generated = 0  # число загаданное компьютером
-while not computer_number_check(computer_number_generated):
-    computer_number_generated = random.randint(1000, 9999)
-print(f"Computer number: {computer_number_generated}")
+comp_numb_gen = 0  # число загаданное компьютером
+while not computer_number_check(comp_numb_gen):
+    comp_numb_gen = random.randint(1000, 9999)
+# print(f"Computer number: {comp_numb_gen}")
 # just debug print
 print("Computer generated a number for you. Try to guess!")
 
 
 def player_number_check():
     """Проверка ответа пользователя на уникальность цифр"""
-    player_number = int(input("Enter your number (should contain only uniq digits): "))
+    player_number = int(input("Enter your number "
+                              "(should contain only uniq digits): "))
     player_number_list = list(str(player_number))
     if len(set(player_number_list)) == 4:
         return player_number
@@ -63,18 +65,18 @@ def bulls_cows_counter(computer_number, player_number, bulls=0, cows=0):
 
 
 # 1-й вызов функции проверки ввденного игроком числа
-player_number_attempt = player_number_check()
+pl_num_attempt = player_number_check()
 # 1-й вызов функции подсчета быков и коров
-bulls_guess, cows_guess = bulls_cows_counter(computer_number_generated, player_number_attempt)
+bulls_guess, cows_guess = bulls_cows_counter(comp_numb_gen, pl_num_attempt)
 print("You guessed", bulls_guess, "bull(s) and", cows_guess, "cow(s).")
 
 # Цикл повтора вышеуказанных функций пока количество быков не станет == 4
-while bulls_cows_counter(computer_number_generated, player_number_attempt) != (4, 0):
+while bulls_cows_counter(comp_numb_gen, pl_num_attempt) != (4, 0):
     print("    Try one more time!")
-    player_number_attempt = player_number_check()
-    bulls_guess, cows_guess = (bulls_cows_counter(computer_number_generated, player_number_attempt))
+    pl_num_attempt = player_number_check()
+    bulls_guess, cows_guess = bulls_cows_counter(comp_numb_gen, pl_num_attempt)
     print("You guessed", bulls_guess, "bull(s) and", cows_guess, "cow(s).")
-print("Congratulation!", player_number_attempt, "is the correct answer :)")
+print("Congratulation!", pl_num_attempt, "is the correct answer :)")
 
 
 # # # Пирамида # # #
