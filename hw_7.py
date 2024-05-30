@@ -1,18 +1,20 @@
+"""Homework_7"""
+
 """Быки и коровы"""
 # В классическом варианте игра рассчитана на двух игроков.
 # Каждый из игроков задумывает и записывает тайное 4-значное число
-# с неповторяющимися цифрами.
+#   с неповторяющимися цифрами.
 # Игрок, который начинает игру по жребию, делает первую попытку отгадать число.
 # Попытка — это 4-значное число с неповторяющимися цифрами,
-# сообщаемое противнику.
+#   сообщаемое противнику.
 # Противник сообщает в ответ,
-# сколько цифр угадано без совпадения с их позициями в тайном числе
-#   (то есть количество коров)
+#   сколько цифр угадано без совпадения с их позициями в тайном числе
+#     (то есть количество коров)
 #   и сколько угадано вплоть до позиции в тайном числе
-#   (то есть количество быков).
-#   При игре против компьютера игрок вводит комбинации одну за другой,
+#     (то есть количество быков).
+# При игре против компьютера игрок вводит комбинации одну за другой,
 #   пока не отгадает всю последовательность.
-#   Ваша задача реализовать программу,
+# Ваша задача реализовать программу,
 #   против которой можно сыграть в "Быки и коровы"
 # Пример
 # Загадано
@@ -35,10 +37,10 @@ def computer_number_check(computer_number):
 
 
 # Генерация случайного 4-х значного числа
-computer_number = 0  # число загаданное компьютером
-while not computer_number_check(computer_number):
-    computer_number = random.randint(1000, 9999)
-# print(f"Computer number: {computer_number}")
+computer_number_generated = 0  # число загаданное компьютером
+while not computer_number_check(computer_number_generated):
+    computer_number_generated = random.randint(1000, 9999)
+print(f"Computer number: {computer_number_generated}")
 # just debug print
 print("Computer generated a number for you. Try to guess!")
 
@@ -66,25 +68,25 @@ def bulls_cows_counter(computer_number, player_number, bulls=0, cows=0):
 
 
 # 1-й вызов функции проверки ввденного игроком числа
-player_number = player_number_check()
+player_number_attempt = player_number_check()
 # 1-й вызов функции подсчета быков и коров
-bulls, cows = bulls_cows_counter(computer_number, player_number)
-print("Yuu guessed", bulls, "bulls and", cows, "cows")
+bulls_guessed, cows_guessed = bulls_cows_counter(computer_number_generated, player_number_attempt)
+print("You guessed", bulls_guessed, "bull(s) and", cows_guessed, "cow(s).")
 
 # Цикл повтора вышеуказанных функций пока количество быков не станет == 4
-while bulls_cows_counter(computer_number, player_number) != (4, 0):
+while bulls_cows_counter(computer_number_generated, player_number_attempt) != (4, 0):
     print("    Try one more time!")
-    player_number = player_number_check()
-    bulls, cows = bulls_cows_counter(computer_number, player_number)
-    print("Yuu guessed", bulls, "bulls and", cows, "cows.")
-print("Congratulation!", player_number, "is correct answer")
+    player_number_attempt = player_number_check()
+    bulls_guessed, cows_guessed = bulls_cows_counter(computer_number_generated, player_number_attempt)
+    print("You guessed", bulls_guessed, "bull(s) and", cows_guessed, "cow(s).")
+print("Congratulation!", player_number_attempt, "is the correct answer :)")
 
 
-# # # # Пирамида # # # #
+"""Пирамида"""
 # Мы можем визуализировать художественную пирамиду ASCII с N уровнями,
-# напечатав N рядов звездочек,
-# где верхний ряд имеет одну звездочку в центре,
-# а каждый последующий ряд имеет две дополнительные звездочки с каждой стороны.
+#   напечатав N рядов звездочек,
+#   где верхний ряд имеет одну звездочку в центре,
+#   а каждый последующий ряд имеет две дополнительные звездочки с каждой стороны.
 # Вот как это выглядит, когда N равно 3.
 #   *
 #  ***
@@ -104,12 +106,12 @@ for level in range(pyramid):
     print(' ' * (pyramid-level-1) + '*' * (level*2+1))
 
 
-# # # # Статуи # # # #
+"""Статуи"""
 # Вы получили в подарок на день рождения статуи разных размеров,
-# каждая статуя имеет неотрицательный целочисленный размер.
+#   каждая статуя имеет неотрицательный целочисленный размер.
 # Поскольку Вам нравится доводить вещи до совершенства,
-# то необходимо расположить их от меньшего к большему,
-# чтобы каждая статуя была больше предыдущей ровно на 1.
+#   то необходимо расположить их от меньшего к большему,
+#   чтобы каждая статуя была больше предыдущей ровно на 1.
 # Для этого Вам могут понадобиться дополнительные статуи.
 # Определите количество отсутствующих статуй.
 # Пример
