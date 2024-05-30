@@ -36,8 +36,8 @@ def computer_number_check(computer_number):
 computer_number = 0  # число загаданное компьютером
 while not computer_number_check(computer_number):
     computer_number = random.randint(1000, 9999)
-print(f"Computer number: {computer_number}")
-# secret information, just debug print
+# print(f"Computer number: {computer_number}")
+# just debug print
 print("Computer generated a number for you. Try to guess!")
 
 
@@ -48,8 +48,7 @@ def player_number_check():
     player_number_list = list(str(player_number))
     if len(set(player_number_list)) == 4:
         return player_number
-    else:
-        return player_number_check()
+    return player_number_check()
 
 
 def bulls_cows_counter(computer_number, player_number, bulls=0, cows=0):
