@@ -36,7 +36,6 @@ comp_numb_gen = 0  # число загаданное компьютером
 while not computer_number_check(comp_numb_gen):
     comp_numb_gen = random.randint(1000, 9999)
 print(f"Computer number: {comp_numb_gen}")
-# just debug print
 print("Computer generated a number for you. Try to guess!")
 
 
@@ -62,18 +61,12 @@ def bulls_cows_counter(computer_number, player_number, bulls=0, cows=0):
     return bulls, cows
 
 
-# 1-й вызов функции проверки ввденного игроком числа
 pl_num_attempt = player_number_check()
-# 1-й вызов функции подсчета быков и коров
-bulls_guess, cows_guess = bulls_cows_counter(comp_numb_gen, pl_num_attempt)
-print("You guessed", bulls_guess, "bull(s) and", cows_guess, "cow(s).")
-
-# Цикл повтора вышеуказанных функций пока количество быков не станет == 4
 while bulls_cows_counter(comp_numb_gen, pl_num_attempt) != (4, 0):
-    print("    Try one more time!")
-    pl_num_attempt = player_number_check()
     bulls_guess, cows_guess = bulls_cows_counter(comp_numb_gen, pl_num_attempt)
     print("You guessed", bulls_guess, "bull(s) and", cows_guess, "cow(s).")
+    print("    Try one more time!")
+    pl_num_attempt = player_number_check()
 print("Congratulation!", pl_num_attempt, "is the correct answer :)")
 
 
@@ -96,7 +89,6 @@ print("Congratulation!", pl_num_attempt, "is the correct answer :)")
 # которая генерирует такую пирамиду со значением N, равным 10
 
 pyramid = int(input("Enter pyramid level: "))
-# for level in range(pyramid):
 for level in range(pyramid):
     print(' ' * (pyramid-level-1) + '*' * (level*2+1))
 
@@ -115,7 +107,6 @@ for level in range(pyramid):
 
 gift = [6, 2, 3, 8]
 new_gift = list(range(min(gift), max(gift)+1))
-# print(new_gift)
 missed_elements_count = 0
 missed_elements = []
 for i in new_gift:
