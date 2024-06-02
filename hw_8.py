@@ -51,8 +51,12 @@ def sequence_check(sequence):
     return True
 
 
-sequence = [1, 3, 2, 1]
-print(sequence_check(sequence))
+assert sequence_check([1, 2, 3]), 'must be True'
+assert sequence_check([1]), 'must be True'
+assert not sequence_check([1, 2, 1, 2]), 'must be False'
+assert not sequence_check([1, 3, 2, 1]), 'must be False'
+assert not sequence_check([1, 2, 3, 4, 5, 3, 5, 6]), 'must be False'
+assert not sequence_check([40, 50, 60, 10, 20, 30]), 'must be False'
 
 
 # # # Число напротив # # #
@@ -72,16 +76,18 @@ def opposite_number(n, first_number):
     return a
 
 
-n = int(input("Enter n: "))
-while n % 2 == 1:
-    print("n must be even number")
+while True:
     n = int(input("Enter n: "))
-print("Your circle:", list(range(0, n)))
+    if n % 2 == 0:
+        break
+    print("n must be even number")
 
-first_number = int(input("Enter first_number: "))
-while first_number > n-1:
-    print("First number can not be >= n")
+while True:
     first_number = int(input("Enter first_number: "))
+    if first_number <= n-1:
+        break
+    print("First number can not be >= n")
+
 print("Opposite number is", opposite_number(n, first_number))
 
 
