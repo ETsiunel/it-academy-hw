@@ -50,8 +50,6 @@ assert string_modifier('abcde') == 'abcde'
 # создать свечу из оставшихся остатков;
 # зажгите последнюю свечу.
 # Таким образом, можно сжечь 5+2+1+1=9 свечей, что и является ответом.
-new_candles_init = 0
-make_new = 0
 
 
 def burned_candles_counter(new_candles, make_new_candle):
