@@ -39,7 +39,8 @@ assert string_modifier('abcde') == 'abcde'
 # что вы создадите новые свечи, как только у вас останется достаточно остатков?
 # Пример
 # Если у Вас 5(candles_number) свечей,
-# и из 2х(make_new) остатков вы можете сделать 1 новую свечу, то ответе будет: 9.
+# и из 2х(make_new) остатков вы можете сделать 1 новую свечу,
+# то ответе будет: 9.
 # По шагам, чтобы сжечь 9 свечей:
 # сожгите 5 свечей, получите 5 остатков;
 # создайте еще 2 свечи, используя 4 остатка (остался 1);
@@ -55,14 +56,14 @@ make_new = 0
 
 def burned_candles_counter(new_candles, make_new_candle):
     """Функция подсчета сгоревших свечей"""
-    rest_after_new_candles_creation = 0
+    rest_after_new_candles = 0
     burned = 0
     while new_candles != 0:
         burned_candles = new_candles
         rest_after_burning = burned_candles
-        common_rest = rest_after_burning + + rest_after_new_candles_creation
+        common_rest = rest_after_burning + + rest_after_new_candles
         new_candles = common_rest // make_new_candle
-        rest_after_new_candles_creation = common_rest - new_candles * make_new_candle
+        rest_after_new_candles = common_rest - new_candles * make_new_candle
         burned += burned_candles
     return burned
 
