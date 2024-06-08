@@ -1,5 +1,6 @@
 """Homework_9"""
 
+
 # # # Строки с заданным символом # # #
 # Напишите программу, которая бы работала следующим образом -
 # находила символ "#" и если этот символ найден -
@@ -7,18 +8,18 @@
 # Ваша задача обработать строки с "#" символом.
 
 
-def string_modifier(string: str) -> str:
+def string_modifier(string):
     """Функция замены символа перед #"""
-    if "".join(string.split("#")) == "":
-        return ""
-    parts = string.split("#")
-    result = ""
-    for part in parts:
-        if len(result) == 0:
-            result += part
-        else:
-            result = result[:-1] + part
-    return result
+    if "#" in string:
+        parts = string.split("#")
+        result = ""
+        for part in parts:
+            if len(result) == 0:
+                result += part
+            else:
+                result = result[:-1] + part
+        return result
+    return string
 
 
 assert string_modifier('a#bc#d') == 'bd'
