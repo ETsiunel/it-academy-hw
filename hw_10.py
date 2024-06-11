@@ -16,11 +16,11 @@
 def validate_arguments(function_to_decorate):
     """Декоратор проверки аргументов функции"""
     def validator_wrapper(*args):
-        function_to_decorate(*args)
         for i in args:
             if i <= 0:
                 raise ValueError("Argument can not be zero or negative."
                                  f" Invalid argument: {i}")
+        function_to_decorate(*args)
     return validator_wrapper
 
 
@@ -29,7 +29,7 @@ def validator(*args):
     print(*args)
 
 
-validator(1, 2, 100)
+validator(1, 2, -1, 100)
 
 
 # # # Вернуть число # # #
