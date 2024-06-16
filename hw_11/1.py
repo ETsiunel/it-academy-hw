@@ -1,0 +1,80 @@
+"""Homework_11"""
+
+# # # Библиотека # # #
+# Создайте класс book с именем книги, автором, кол-м страниц,
+# ISBN, флагом, зарезервирована ли книги или нет.
+# Создайте класс пользователь,
+# который может брать книгу, возвращать, бронировать.
+# Если другой пользователь хочет взять зарезервированную книгу
+# (или которую уже кто-то читает - надо ему про это сказать).
+
+
+class Book:
+    """Определение класса Book"""
+    def __init__(self, title, author, pages, isbn):
+        self.title = title
+        self.author = author
+        self.pages = pages
+        self.isbn = isbn
+        self.reserved = False
+        self.in_use = False
+
+
+class User:
+    """Определение класса User"""
+    def __init__(self, name):
+        self.name = name
+        self.taken_books = []
+        self.returned_books = []
+        self.reserved_books = []
+
+    def reserve_book(self, book):
+        """Метод резервирования книги"""
+        if book.in_use:
+            print(f"Sorry, book '{book.title}' is in use")
+        elif book.reserved:
+            print(f"Sorry, book '{book.title}' is reserved")
+        else:
+            book.reserved = True
+            self.reserved_books.append(book)
+            print(f"You have reserved book '{book.title}'")
+
+    def take_book(self, book):
+        """Метод взятия книги"""
+        if book.in_use:
+            print(f"Sorry, book '{book.title}' is in use")
+        elif book.reserved and book not in self.reserved_books:
+            print(f"Sorry, book '{book.title}' is reserved")
+        else:
+            book.in_use = True
+            if book in self.reserved_books:
+                book.reserved = False
+                self.reserved_books.remove(book)
+            self.taken_books.append(book)
+            print(f"You have taken book '{book.title}'")
+
+    def return_book(self, book):
+        """Метод возврата книги"""
+        if book in self.taken_books:
+            book.in_use = False
+            self.taken_books.remove(book)
+            print(f"You have returned book '{book.title}'")
+        else:
+            print(f"You do not have book '{book.title}' taken")
+
+
+book1 = Book("Book_1", "Author_1", 100, "12345")
+book2 = Book("Book_2", "Author_2", 200, "23456")
+
+user1 = User("Kate")
+user2 = User("Anna")
+
+user1.reserve_book(book1)
+user2.take_book(book1)
+user1.take_book(book1)
+user2.take_book(book2)
+user2.return_book(book1)
+user1.return_book(book1)
+user2.reserve_book(book1)
+user2.take_book(book1)
+user1.take_book(book2)
