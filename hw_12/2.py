@@ -2,7 +2,8 @@
 # # # Конвертер валют # # #
 # Расширьте функционал класса Bank из домашней работы #11.
 # Добавьте новый класс Currency,
-# который умеет конвертировать различные валюты(USD, EUR, ...) в заданную валюту.
+# который умеет конвертировать различные валюты(USD, EUR, ...)
+# в заданную валюту.
 # bank = Bank(..)
 # vasya = Person('USD', 10)
 # petya = Person('EUR', 5)
@@ -54,7 +55,8 @@ class Currency:
         if (to_currency, from_currency) in cls.exchange_rates:
             rate = cls.exchange_rates[(to_currency, from_currency)]
             return round(amount / rate, 2), to_currency
-        raise ValueError(f"Конвертация из {from_currency} в {to_currency} невозможна")
+        raise ValueError(f"Конвертация из {from_currency} "
+                         f"в {to_currency} невозможна")
 
 
 bank = Bank()

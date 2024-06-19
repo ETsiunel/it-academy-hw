@@ -9,7 +9,8 @@ import random
 
 class Card:
     """Определение класса карта"""
-    number_list = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+    number_list = ['2', '3', '4', '5', '6', '7', '8',
+                   '9', '10', 'J', 'Q', 'K', 'A']
     mast_list = ['Hearts', 'Diamonds', 'Clubs', 'Spades', 'Jokers']
 
     def __init__(self, number, mast):
