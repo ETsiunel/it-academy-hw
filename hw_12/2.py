@@ -63,6 +63,7 @@ bank = Bank()
 vasya = Person('USD', 10)
 petya = Person('EUR', 5)
 
+
 assert (bank.exchange_currency(vasya.currency, vasya.amount)
         == (32.69, "BYN")), "Ошибка конвертации USD в BYN"
 assert (bank.exchange_currency(petya.currency, petya.amount)
