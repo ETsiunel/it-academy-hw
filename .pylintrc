@@ -440,7 +440,8 @@ disable=raw-checker-failed,
         invalid-name,
         W0621,
         R0903,
-        broad-exception-caught
+        broad-exception-caught,
+        C0116
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
