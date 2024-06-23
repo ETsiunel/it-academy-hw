@@ -31,8 +31,8 @@ class CardsDeck:
         for mast in Card.mast_list[:-1]:
             for number in Card.number_list:
                 deck.append(Card(number, mast))
-        deck.append(Card('Joker', Card.mast_list[-1]))
-        deck.append(Card('Joker', Card.mast_list[-1]))
+        deck.append(Card('Joker', 'Red'))
+        deck.append(Card('Joker', 'Black'))
         return deck
 
     def shuffle(self):

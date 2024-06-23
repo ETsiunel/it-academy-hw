@@ -52,9 +52,6 @@ class Currency:
         if (from_currency, to_currency) in cls.exchange_rates:
             rate = cls.exchange_rates[(from_currency, to_currency)]
             return round(amount * rate, 2), to_currency
-        if (to_currency, from_currency) in cls.exchange_rates:
-            rate = cls.exchange_rates[(to_currency, from_currency)]
-            return round(amount / rate, 2), to_currency
         raise ValueError(f"Конвертация из {from_currency} "
                          f"в {to_currency} невозможна")
 
