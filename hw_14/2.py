@@ -17,6 +17,7 @@ import re
 import operator
 
 
+# flake8: noqa: C901
 def expression(exp):
     """Функция разбора выражения на числа и операторы"""
     parts = re.findall(r'[+-]?\d+(?:\.\d+)?|\*\*|[+\-*/()]', exp)
