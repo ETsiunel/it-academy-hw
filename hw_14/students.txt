@@ -1,0 +1,9 @@
+Kate Tsiunel, 245, 98
+Anna Rabtsava, 245, 90
+Alex Tsurkan, 315, 66
+Denis Lomeyko, 315, 86
+Dmitriy Skvortsov, 245, 45
+
+Total students: 5
+Group 245: 3 students, average grade 77.67
+Group 315: 2 students, average grade 76.00
