@@ -1,0 +1,9 @@
+2024-07-17 00:19:14,483 - INFO - You have reserved book Book_1
+2024-07-17 00:19:14,483 - WARNING - Sorry, book Book_1 is reserved
+2024-07-17 00:19:14,483 - INFO - You have taken book Book_1
+2024-07-17 00:19:14,483 - INFO - You have taken book Book_2
+2024-07-17 00:19:14,483 - WARNING - You do not have book Book_1 taken
+2024-07-17 00:19:14,483 - INFO - You have returned book Book_1
+2024-07-17 00:19:14,483 - INFO - You have reserved book Book_1
+2024-07-17 00:19:14,483 - INFO - You have taken book Book_1
+2024-07-17 00:19:14,483 - WARNING - Sorry, book Book_2 is in use
