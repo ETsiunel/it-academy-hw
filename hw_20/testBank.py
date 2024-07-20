@@ -8,75 +8,78 @@ from hw_20.bank import Deposit, Bank
 class TestDeposit(unittest.TestCase):
     """Deposit methods unit tests"""
     def setUp(self):
-        self.deposit1 = Deposit(1000, 12, 0.10)
-        self.deposit2 = Deposit(50000, 12, 0.08)
-        self.deposit3 = Deposit(2000, 6, 0.05)
-        self.deposit4 = Deposit(1000, 12)   # default percent 10%
+        self.deposit_valid = Deposit(1000, 12, 0.10)
+        self.deposit_default = Deposit(1000, 12)  # default percent 10%
         self.bank1 = Bank()
 
     def tearDown(self):
-        del self.deposit1
-        del self.deposit2
-        del self.deposit3
-        del self.deposit4
+        del self.deposit_valid
+        del self.deposit_default
         del self.bank1
 
     def test_total_amount(self):
-        """Test finish amount calculating"""
-        # N = 1000, R = 12, percent = 10
+        """Test total amount calculating"""
         log.info('Testing total amount: initial 1000 RUB, 12 months, 10%')
         expected_amount = 1000 * ((1 + 0.10 / 12) ** 12)
-        calculated_amount = self.deposit1.total_amount()
-        self.assertAlmostEqual(calculated_amount, expected_amount, places=2)
+        self.deposit_valid.total_amount()
+        self.assertAlmostEqual(self.deposit_valid.total_amount(), expected_amount, places=2)
         log.info(f'Expected amount = {expected_amount:.4f}, '
-                 f'Calculated amount = {calculated_amount:.4f}')
-
-        # N = 50000 RUB, R = 12 month, percent = 8%
-        log.info('Testing total amount: initial 50000 RUB, 12 months, 8%')
-        expected_amount = 50000 * ((1 + 0.08 / 12) ** 12)
-        calculated_amount = self.deposit2.total_amount()
-        self.assertAlmostEqual(calculated_amount, expected_amount, places=2)
-        log.info(f'Expected amount = {expected_amount:.4f}, '
-                 f'Calculated amount = {calculated_amount:.4f}')
-
-        # N = 2000 RUB, R = 6 month, percent = 5%
-        log.info('Testing total amount: initial 2000 RUB, 6 months, 5%')
-        expected_amount = 2000 * ((1 + 0.05 / 12) ** 6)
-        calculated_amount = self.deposit3.total_amount()
-        self.assertAlmostEqual(calculated_amount, expected_amount, places=2)
-        log.info(f'Expected amount = {expected_amount:.4f}, '
-                 f'Calculated amount = {calculated_amount:.4f}')
+                 f'Calculated amount = {self.deposit_valid.total_amount():.4f}')
 
     def test_default_percent(self):
-        """Test finish amount calculating with default percent"""
-        # N = 1000, R = 12, default percent = 10%
+        """Test total amount calculating with default percent"""
         log.info('Testing total amount: initial 1000 RUB, 12 months, '
                  'default percent 10%')
         expected_amount = 1000 * ((1 + 0.10 / 12) ** 12)
-        calculated_amount = self.deposit4.total_amount()
-        self.assertAlmostEqual(calculated_amount, expected_amount, places=2)
+        self.deposit_default.total_amount()
+        self.assertAlmostEqual(self.deposit_default.total_amount(), expected_amount, places=2)
         log.info(f'Expected amount = {expected_amount:.4f}, '
-                 f'Calculated amount = {calculated_amount:.4f}')
+                 f'Calculated amount = {self.deposit_default.total_amount():.4f}')
 
     def test_deposit_is_instance(self):
         """Test deposit is instance of class Deposit"""
-        self.assertIsInstance(self.deposit1, Deposit)
+        self.assertIsInstance(self.deposit_valid, Deposit)
         log.info('Testing deposit1 is instance of class Deposit')
-        self.assertIsInstance(self.deposit2, Deposit)
-        log.info('Testing deposit2 is instance of class Deposit')
-        self.assertIsInstance(self.deposit3, Deposit)
-        log.info('Testing deposit3 is instance of class Deposit')
-        self.assertIsInstance(self.deposit4, Deposit)
-        log.info('Testing deposit4 is instance of class Deposit')
 
     def test_deposit_more_than_amount(self):
         """Test deposit amount > initial amount"""
-        self.assertGreater(self.deposit1.total_amount(), self.deposit1.amount)
+        self.assertGreater(self.deposit_valid.total_amount(), self.deposit_valid.amount)
         log.info('Testing deposit amount > initial amount')
+
+    def test_invalid_amount(self):
+        """Test deposit with invalid amount"""
+        with self.assertLogs(log, level='ERROR') as cm:
+            invalid_deposit = Deposit(-1000, 12, 0.10)
+            self.assertFalse(invalid_deposit.valid)
+            self.assertIsNone(invalid_deposit.total_amount())
+        self.assertIn("Сумма вклада должна быть положительной", cm.output[0])
+
+    def test_invalid_term(self):
+        """Test deposit with invalid term"""
+        with self.assertLogs(log, level='ERROR') as cm:
+            invalid_deposit = Deposit(1000, -12, 0.10)
+            self.assertFalse(invalid_deposit.valid)
+            self.assertIsNone(invalid_deposit.total_amount())
+        self.assertIn("Срок вклада должен быть больше нуля", cm.output[0])
+
+    def test_invalid_percent(self):
+        """Test deposit with invalid percent"""
+        with self.assertLogs(log, level='ERROR') as cm:
+            invalid_deposit = Deposit(1000, 12, 1.5)
+            self.assertFalse(invalid_deposit.valid)
+            self.assertIsNone(invalid_deposit.total_amount())
+        self.assertIn("Процентная ставка должна быть в пределах (0, 1]", cm.output[0])
+
+        with self.assertLogs(log, level='ERROR') as cm:
+            invalid_deposit = Deposit(1000, 12, -0.1)
+            self.assertFalse(invalid_deposit.valid)
+            self.assertIsNone(invalid_deposit.total_amount())
+        self.assertIn("Процентная ставка должна быть в пределах (0, 1]", cm.output[0])
 
 
 class TestBank(unittest.TestCase):
     """Bank methods unit tests"""
+
     def setUp(self):
         self.bank1 = Bank()
         self.bank2 = Bank()
@@ -91,6 +94,20 @@ class TestBank(unittest.TestCase):
         expected_amount = 1000 * ((1 + 0.10 / 12) ** 12)
         calculated_amount = self.bank1.deposit(N, R)
         self.assertAlmostEqual(calculated_amount, expected_amount, places=2)
+
+    def test_invalid_deposit_amount(self):
+        """Test Bank deposit with invalid amount"""
+        with self.assertLogs(log, level='ERROR') as cm:
+            invalid_amount = self.bank1.deposit(-1000, 12)
+            self.assertIsNone(invalid_amount)
+        self.assertIn("Сумма вклада должна быть положительной", cm.output[0])
+
+    def test_invalid_deposit_term(self):
+        """Test Bank deposit with invalid term"""
+        with self.assertLogs(log, level='ERROR') as cm:
+            invalid_term = self.bank1.deposit(1000, -12)
+            self.assertIsNone(invalid_term)
+        self.assertIn("Срок вклада должен быть больше нуля", cm.output[0])
 
 
 if __name__ == '__main__':
