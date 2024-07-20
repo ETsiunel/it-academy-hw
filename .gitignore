@@ -19,3 +19,9 @@ venv/
 hw_21/tests/report_bank.html
 hw_21/tests/report_library.html
 hw_21/tests/report.html
+
+# pytest
+.test_log.log
+htmlcov/
+.cache/
+*.html
