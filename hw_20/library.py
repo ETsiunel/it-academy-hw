@@ -8,16 +8,7 @@
 # Если другой пользователь хочет взять зарезервированную книгу
 # (или которую уже кто-то читает - надо ему про это сказать).
 
-import logging
-
-logging.basicConfig(filename='Library.log',
-                    filemode='w',
-                    encoding='utf-8',
-                    format="%(asctime)s - %(levelname)s - %(message)s",
-                    level=logging.INFO
-                    )
-
-logger = logging.getLogger(__name__)
+from hw_20.my_logger import logger as log
 
 
 class Book:
@@ -48,36 +39,36 @@ class User:
     def reserve_book(self, book):
         """Метод резервирования книги"""
         if book.in_use:
-            logging.warning("Sorry, book %s is in use" % book.title)
+            log.warning("Sorry, book %s is in use" % book.title)
         elif book.reserved:
-            logging.warning("Sorry, book %s is reserved" % book.title)
+            log.warning("Sorry, book %s is reserved" % book.title)
         else:
             book.reserved = True
             self.reserved_books.append(book)
-            logging.info("You have reserved book %s" % book.title)
+            log.info("You have reserved book %s" % book.title)
 
     def take_book(self, book):
         """Метод взятия книги"""
         if book.in_use:
-            logging.warning("Sorry, book %s is in use" % book.title)
+            log.warning("Sorry, book %s is in use" % book.title)
         elif book.reserved and book not in self.reserved_books:
-            logging.warning("Sorry, book %s is reserved" % book.title)
+            log.warning("Sorry, book %s is reserved" % book.title)
         else:
             book.in_use = True
             if book in self.reserved_books:
                 book.reserved = False
                 self.reserved_books.remove(book)
             self.taken_books.append(book)
-            logging.info("You have taken book %s" % book.title)
+            log.info("You have taken book %s" % book.title)
 
     def return_book(self, book):
         """Метод возврата книги"""
         if book in self.taken_books:
             book.in_use = False
             self.taken_books.remove(book)
-            logging.info("You have returned book %s" % book.title)
+            log.info("You have returned book %s" % book.title)
         else:
-            logging.warning("You do not have book %s taken" % book.title)
+            log.warning("You do not have book %s taken" % book.title)
 
 
 book1 = Book("Book_1", "Author_1", 100, "12345")
