@@ -22,9 +22,11 @@ class TestDeposit(unittest.TestCase):
         log.info('Testing total amount: initial 1000 RUB, 12 months, 10%')
         expected_amount = 1000 * ((1 + 0.10 / 12) ** 12)
         self.deposit_valid.total_amount()
-        self.assertAlmostEqual(self.deposit_valid.total_amount(), expected_amount, places=2)
+        self.assertAlmostEqual(self.deposit_valid.total_amount(),
+                               expected_amount, places=2)
         log.info(f'Expected amount = {expected_amount:.4f}, '
-                 f'Calculated amount = {self.deposit_valid.total_amount():.4f}')
+                 f'Calculated amount = '
+                 f'{self.deposit_valid.total_amount():.4f}')
 
     def test_default_percent(self):
         """Test total amount calculating with default percent"""
@@ -32,9 +34,11 @@ class TestDeposit(unittest.TestCase):
                  'default percent 10%')
         expected_amount = 1000 * ((1 + 0.10 / 12) ** 12)
         self.deposit_default.total_amount()
-        self.assertAlmostEqual(self.deposit_default.total_amount(), expected_amount, places=2)
+        self.assertAlmostEqual(self.deposit_default.total_amount(),
+                               expected_amount, places=2)
         log.info(f'Expected amount = {expected_amount:.4f}, '
-                 f'Calculated amount = {self.deposit_default.total_amount():.4f}')
+                 f'Calculated amount = '
+                 f'{self.deposit_default.total_amount():.4f}')
 
     def test_deposit_is_instance(self):
         """Test deposit is instance of class Deposit"""
@@ -43,7 +47,8 @@ class TestDeposit(unittest.TestCase):
 
     def test_deposit_more_than_amount(self):
         """Test deposit amount > initial amount"""
-        self.assertGreater(self.deposit_valid.total_amount(), self.deposit_valid.amount)
+        self.assertGreater(self.deposit_valid.total_amount(),
+                           self.deposit_valid.amount)
         log.info('Testing deposit amount > initial amount')
 
     def test_invalid_amount(self):
@@ -68,13 +73,15 @@ class TestDeposit(unittest.TestCase):
             invalid_deposit = Deposit(1000, 12, 1.5)
             self.assertFalse(invalid_deposit.valid)
             self.assertIsNone(invalid_deposit.total_amount())
-        self.assertIn("Процентная ставка должна быть в пределах (0, 1]", cm.output[0])
+        self.assertIn("Процентная ставка должна быть "
+                      "в пределах (0, 1]", cm.output[0])
 
         with self.assertLogs(log, level='ERROR') as cm:
             invalid_deposit = Deposit(1000, 12, -0.1)
             self.assertFalse(invalid_deposit.valid)
             self.assertIsNone(invalid_deposit.total_amount())
-        self.assertIn("Процентная ставка должна быть в пределах (0, 1]", cm.output[0])
+        self.assertIn("Процентная ставка должна быть "
+                      "в пределах (0, 1]", cm.output[0])
 
 
 class TestBank(unittest.TestCase):
