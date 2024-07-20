@@ -1,6 +1,5 @@
 """Homework_21"""
 
-from hw_21.my_logger import logger as log
 import pytest
 from hw_21.source.library import Book, User
 

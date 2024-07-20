@@ -1,8 +1,8 @@
 """Homework_21"""
 
-from hw_21.my_logger import logger as log
 import pytest
 from hw_21.source.bank import Deposit, Bank
+from hw_21.my_logger import logger as log
 
 
 @pytest.fixture
