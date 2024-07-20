@@ -8,7 +8,7 @@
 # Если другой пользователь хочет взять зарезервированную книгу
 # (или которую уже кто-то читает - надо ему про это сказать).
 
-from hw_21.my_logger import logger as log
+from hw_21.tests.my_logger import logger as log
 
 
 class Book:
@@ -77,12 +77,14 @@ book2 = Book("Book_2", "Author_2", 200, "23456")
 user1 = User("Kate")
 user2 = User("Anna")
 
-user1.reserve_book(book1)
-user2.take_book(book1)
-user1.take_book(book1)
-user2.take_book(book2)
-user2.return_book(book1)
-user1.return_book(book1)
-user2.reserve_book(book1)
-user2.take_book(book1)
-user1.take_book(book2)
+if __name__ == "__main__":
+    user1.reserve_book(book1)
+    user2.take_book(book1)
+    user1.take_book(book1)
+    user2.take_book(book2)
+    user2.return_book(book1)
+    user1.return_book(book1)
+    user2.reserve_book(book1)
+    user2.take_book(book1)
+    user1.take_book(book2)
+

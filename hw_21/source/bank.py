@@ -11,7 +11,7 @@
 #
 # https://myfin.by/wiki/term/kapitalizaciya-procentov
 
-from hw_21.my_logger import logger as log
+from hw_21.tests.my_logger import logger as log
 
 
 class Deposit:
@@ -22,9 +22,8 @@ class Deposit:
         self.percent = percent
         self.valid = self._validate_parameters()
 
-        if not self._validate_parameters():
-            log.error(f"Invalid parameters: amount={amount}, "
-                      f"term={term}, percent={percent}")
+        if not self.valid:
+            log.error(f"Invalid parameters: amount={amount}, term={term}, percent={percent}")
 
     def _validate_parameters(self):
         valid = True
@@ -54,7 +53,7 @@ class Deposit:
     def total_amount(self):
         if not self.valid:
             return None
-        return self.amount * ((1 + self.percent/12)**self.term)
+        return self.amount * ((1 + self.percent / 12) ** self.term)
 
 
 class Bank:
@@ -63,8 +62,7 @@ class Bank:
         deposit = Deposit(N, R)
         total = deposit.total_amount()
         if total is None:
-            log.error(f"Failed to create deposit "
-                      f"with amount={N} and term={R}")
+            log.error(f"Failed to create deposit with amount={N} and term={R}")
         return total
 
 

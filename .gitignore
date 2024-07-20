@@ -16,3 +16,6 @@ venv/
 .DS_Store
 .github/.DS_Store
 .github/workflows/.DS_Store
+hw_21/tests/report_bank.html
+hw_21/tests/report_library.html
+hw_21/tests/report.html
