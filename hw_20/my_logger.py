@@ -1,3 +1,5 @@
+"""Logger"""
+
 import logging
 
 formatter = logging.Formatter('\n[%(asctime)s] - %(levelname)s - %(message)s')

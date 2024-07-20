@@ -22,7 +22,7 @@ class TestLibrary(unittest.TestCase):
     def test_reserve_book_already_in_use(self):
         """Reserve book already in use"""
         log.info(f'{self.user1} tries to reserve_book {self.book1}'
-                    f'which is already in_use')
+                 f'which is already in_use')
         self.book1.in_use = True
         self.user1.take_book(self.book1)
         self.assertFalse(self.book1.reserved)
@@ -33,7 +33,7 @@ class TestLibrary(unittest.TestCase):
     def test_reserve_book_already_reserved(self):
         """Reserve book already reserved"""
         log.info(f'{self.user1} tries to reserve_book {self.book1}'
-                    f'which is already reserved')
+                 f'which is already reserved')
         self.book1.reserved = True
         self.user1.reserve_book(self.book1)
         self.assertTrue(self.book1.reserved)
@@ -51,7 +51,7 @@ class TestLibrary(unittest.TestCase):
     def test_take_book_already_in_use(self):
         """Take book already in use"""
         log.info(f'{self.user1} tries to take_book {self.book1} '
-                    f'which is already in_use')
+                 f'which is already in_use')
         self.book1.in_use = True
         self.user1.take_book(self.book1)
         self.assertNotIn(self.book1, self.user1.taken_books)
@@ -60,7 +60,7 @@ class TestLibrary(unittest.TestCase):
     def test_take_book_already_reserved(self):
         """Take book already reserved"""
         log.info(f'{self.user1} tries to take_book {self.book1} '
-                    f'which is already reserved')
+                 f'which is already reserved')
         self.book1.reserved = True
         self.user2.reserved_books.append(self.book1)
         self.user1.take_book(self.book1)
@@ -81,7 +81,7 @@ class TestLibrary(unittest.TestCase):
     def test_return_book_not_taken(self):
         """Return book not taken"""
         log.info(f'{self.user1} tries to return_book {self.book1} '
-                    f'which is not taken by him')
+                 f'which is not taken by him')
         self.user1.return_book(self.book1)
         self.assertNotIn(self.book1, self.user1.taken_books)
         log.warning(f"You do not have book {self.book1} taken")

@@ -29,7 +29,7 @@ class TestDeposit(unittest.TestCase):
         calculated_amount = self.deposit1.total_amount()
         self.assertAlmostEqual(calculated_amount, expected_amount, places=2)
         log.info(f'Expected amount = {expected_amount:.4f}, '
-                    f'Calculated amount = {calculated_amount:.4f}')
+                 f'Calculated amount = {calculated_amount:.4f}')
 
         # N = 50000 RUB, R = 12 month, percent = 8%
         log.info('Testing total amount: initial 50000 RUB, 12 months, 8%')
@@ -37,7 +37,7 @@ class TestDeposit(unittest.TestCase):
         calculated_amount = self.deposit2.total_amount()
         self.assertAlmostEqual(calculated_amount, expected_amount, places=2)
         log.info(f'Expected amount = {expected_amount:.4f}, '
-                    f'Calculated amount = {calculated_amount:.4f}')
+                 f'Calculated amount = {calculated_amount:.4f}')
 
         # N = 2000 RUB, R = 6 month, percent = 5%
         log.info('Testing total amount: initial 2000 RUB, 6 months, 5%')
@@ -45,18 +45,18 @@ class TestDeposit(unittest.TestCase):
         calculated_amount = self.deposit3.total_amount()
         self.assertAlmostEqual(calculated_amount, expected_amount, places=2)
         log.info(f'Expected amount = {expected_amount:.4f}, '
-                    f'Calculated amount = {calculated_amount:.4f}')
+                 f'Calculated amount = {calculated_amount:.4f}')
 
     def test_default_percent(self):
         """Test finish amount calculating with default percent"""
         # N = 1000, R = 12, default percent = 10%
         log.info('Testing total amount: initial 1000 RUB, 12 months, '
-                    'default percent 10%')
+                 'default percent 10%')
         expected_amount = 1000 * ((1 + 0.10 / 12) ** 12)
         calculated_amount = self.deposit4.total_amount()
         self.assertAlmostEqual(calculated_amount, expected_amount, places=2)
         log.info(f'Expected amount = {expected_amount:.4f}, '
-                    f'Calculated amount = {calculated_amount:.4f}')
+                 f'Calculated amount = {calculated_amount:.4f}')
 
     def test_deposit_is_instance(self):
         """Test deposit is instance of class Deposit"""
