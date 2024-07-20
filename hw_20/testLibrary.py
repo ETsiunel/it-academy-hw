@@ -1,17 +1,8 @@
 """Homework_20"""
 
 import unittest
-import logging
+from hw_20.my_logger import logger as log
 from hw_20.library import Book, User
-
-
-formatter = logging.Formatter(' [%(asctime)s] - %(levelname)s - %(message)s')
-handler = logging.StreamHandler()
-handler.setFormatter(formatter)
-
-logger = logging.getLogger(__name__)
-logger.addHandler(handler)
-logger.setLevel(logging.DEBUG)
 
 
 class TestLibrary(unittest.TestCase):
@@ -30,45 +21,45 @@ class TestLibrary(unittest.TestCase):
 
     def test_reserve_book_already_in_use(self):
         """Reserve book already in use"""
-        logger.info(f'{self.user1} tries to reserve_book {self.book1}'
+        log.info(f'{self.user1} tries to reserve_book {self.book1}'
                     f'which is already in_use')
         self.book1.in_use = True
         self.user1.take_book(self.book1)
         self.assertFalse(self.book1.reserved)
         self.assertFalse(self.user2.reserve_book(self.book1))
         self.assertNotIn(self.book1, self.user1.reserved_books)
-        logger.warning(f"Sorry, book {self.book1} is already in use")
+        log.warning(f"Sorry, book {self.book1} is already in use")
 
     def test_reserve_book_already_reserved(self):
         """Reserve book already reserved"""
-        logger.info(f'{self.user1} tries to reserve_book {self.book1}'
+        log.info(f'{self.user1} tries to reserve_book {self.book1}'
                     f'which is already reserved')
         self.book1.reserved = True
         self.user1.reserve_book(self.book1)
         self.assertTrue(self.book1.reserved)
         self.assertNotIn(self.book1, self.user1.reserved_books)
-        logger.warning(f"Sorry, book {self.book1} is already reserved")
+        log.warning(f"Sorry, book {self.book1} is already reserved")
 
     def test_reserve_book_positive(self):
         """Reserve book"""
-        logger.info(f'{self.user1} tries to reserve_book {self.book1}')
+        log.info(f'{self.user1} tries to reserve_book {self.book1}')
         self.user1.reserve_book(self.book1)
         self.assertTrue(self.book1.reserved)
         self.assertIn(self.book1, self.user1.reserved_books)
-        logger.info(f"You have successfully reserved book {self.book1}")
+        log.info(f"You have successfully reserved book {self.book1}")
 
     def test_take_book_already_in_use(self):
         """Take book already in use"""
-        logger.info(f'{self.user1} tries to take_book {self.book1} '
+        log.info(f'{self.user1} tries to take_book {self.book1} '
                     f'which is already in_use')
         self.book1.in_use = True
         self.user1.take_book(self.book1)
         self.assertNotIn(self.book1, self.user1.taken_books)
-        logger.warning(f"Sorry, book {self.book1} is already in use")
+        log.warning(f"Sorry, book {self.book1} is already in use")
 
     def test_take_book_already_reserved(self):
         """Take book already reserved"""
-        logger.info(f'{self.user1} tries to take_book {self.book1} '
+        log.info(f'{self.user1} tries to take_book {self.book1} '
                     f'which is already reserved')
         self.book1.reserved = True
         self.user2.reserved_books.append(self.book1)
@@ -76,33 +67,33 @@ class TestLibrary(unittest.TestCase):
         self.assertNotIn(self.book1, self.user1.taken_books)
         self.assertTrue(self.book1.reserved)
         self.assertFalse(self.user1.take_book(self.book1))
-        logger.warning(f"Sorry, book {self.book1} is already reserved")
+        log.warning(f"Sorry, book {self.book1} is already reserved")
 
     def test_take_book_positive(self):
         """Take book"""
-        logger.info(f'{self.user1} tries to take_book {self.book1}')
+        log.info(f'{self.user1} tries to take_book {self.book1}')
         self.user1.take_book(self.book1)
         self.assertTrue(self.book1.in_use)
         self.assertIn(self.book1, self.user1.taken_books)
         self.assertFalse(self.book1.reserved)
-        logger.info(f"You have successfully taken book {self.book1}")
+        log.info(f"You have successfully taken book {self.book1}")
 
     def test_return_book_not_taken(self):
         """Return book not taken"""
-        logger.info(f'{self.user1} tries to return_book {self.book1} '
+        log.info(f'{self.user1} tries to return_book {self.book1} '
                     f'which is not taken by him')
         self.user1.return_book(self.book1)
         self.assertNotIn(self.book1, self.user1.taken_books)
-        logger.warning(f"You do not have book {self.book1} taken")
+        log.warning(f"You do not have book {self.book1} taken")
 
     def test_return_book_positive(self):
         """Return book"""
-        logger.info(f'{self.user1} tries to return_book {self.book1}')
+        log.info(f'{self.user1} tries to return_book {self.book1}')
         self.user1.take_book(self.book1)
         self.user1.return_book(self.book1)
         self.assertFalse(self.book1.in_use)
         self.assertNotIn(self.book1, self.user1.taken_books)
-        logger.info(f"You have successfully returned book {self.book1}")
+        log.info(f"You have successfully returned book {self.book1}")
 
     def test_multiple_users(self):
         """Multiple users test"""
