@@ -71,13 +71,12 @@ class User:
             log.warning("You do not have book %s taken" % book.title)
 
 
-book1 = Book("Book_1", "Author_1", 100, "12345")
-book2 = Book("Book_2", "Author_2", 200, "23456")
-
-user1 = User("Kate")
-user2 = User("Anna")
-
 if __name__ == "__main__":
+    book1 = Book("Book_1", "Author_1", 100, "12345")
+    book2 = Book("Book_2", "Author_2", 200, "23456")
+    user1 = User("Kate")
+    user2 = User("Anna")
+
     user1.reserve_book(book1)
     user2.take_book(book1)
     user1.take_book(book1)
