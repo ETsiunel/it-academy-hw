@@ -73,6 +73,6 @@ if __name__ == "__main__":
     R = 12  # срок вклада в месяцах
     total_amount = bank.deposit(N, R)
     if total_amount:
-        print(f"Сумма на счету через {R} месяцев: {total_amount:.4f} рублей")
+        log.info(f"Сумма на счету через {R} месяцев: {total_amount:.4f} рублей")
     else:
-        print("Ошибка при создании вклада")
+        log.error("Ошибка при создании вклада")
