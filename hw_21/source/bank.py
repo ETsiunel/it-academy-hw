@@ -23,7 +23,8 @@ class Deposit:
         self.valid = self._validate_parameters()
 
         if not self.valid:
-            log.error(f"Invalid parameters: amount={amount}, term={term}, percent={percent}")
+            log.error(f"Invalid parameters: amount={amount}, "
+                      f"term={term}, percent={percent}")
 
     def _validate_parameters(self):
         valid = True

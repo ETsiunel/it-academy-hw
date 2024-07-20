@@ -87,4 +87,3 @@ if __name__ == "__main__":
     user2.reserve_book(book1)
     user2.take_book(book1)
     user1.take_book(book2)
-

@@ -1,9 +1,9 @@
 """Homework_21"""
 
+import logging
 import pytest
 from hw_21.source.bank import Deposit, Bank
 # from hw_21.tests.my_logger import logger as log
-import logging
 
 
 @pytest.fixture
@@ -74,14 +74,16 @@ def test_bank_deposit_negative_amount(bank, caplog):
     with caplog.at_level(logging.ERROR):
         total_amount = bank.deposit(-1000, 12)
         assert total_amount is None
-        assert "Failed to create deposit with amount=-1000 and term=12" in caplog.text
+        assert ("Failed to create deposit with amount=-1000 "
+                "and term=12") in caplog.text
 
 
 def test_bank_deposit_zero_term(bank, caplog):
     with caplog.at_level(logging.ERROR):
         total_amount = bank.deposit(1000, 0)
         assert total_amount is None
-        assert "Failed to create deposit with amount=1000 and term=0" in caplog.text
+        assert ("Failed to create deposit with amount=1000 "
+                "and term=0") in caplog.text
 
 
 def test_bank_deposit_excessive_percent(caplog):
