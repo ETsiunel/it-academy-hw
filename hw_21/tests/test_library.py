@@ -1,16 +1,8 @@
 """Homework_21"""
 
-import logging
+from hw_21.my_logger import logger as log
 import pytest
 from hw_21.source.library import Book, User
-
-formatter = logging.Formatter(' [%(asctime)s] - %(levelname)s - %(message)s')
-handler = logging.StreamHandler()
-handler.setFormatter(formatter)
-
-logger = logging.getLogger(__name__)
-logger.addHandler(handler)
-logger.setLevel(logging.DEBUG)
 
 
 @pytest.fixture

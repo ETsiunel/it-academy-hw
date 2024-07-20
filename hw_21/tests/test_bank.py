@@ -1,16 +1,8 @@
 """Homework_21"""
 
-import logging
+from hw_21.my_logger import logger as log
 import pytest
 from hw_21.source.bank import Deposit, Bank
-
-formatter = logging.Formatter(' [%(asctime)s] - %(levelname)s - %(message)s')
-handler = logging.StreamHandler()
-handler.setFormatter(formatter)
-
-logger = logging.getLogger(__name__)
-logger.addHandler(handler)
-logger.setLevel(logging.DEBUG)
 
 
 @pytest.fixture
@@ -51,28 +43,28 @@ def test_bank_deposit_custom_percent():
 
 
 def test_negative_amount(caplog):
-    with caplog.at_level(logging.ERROR):
+    with caplog.at_level(log.ERROR):
         deposit = Deposit(-1000, 12, 0.10)
         assert deposit.total_amount() is None
         assert "Сумма вклада должна быть положительной" in caplog.text
 
 
 def test_zero_term(caplog):
-    with caplog.at_level(logging.ERROR):
+    with caplog.at_level(log.ERROR):
         deposit = Deposit(1000, 0, 0.10)
         assert deposit.total_amount() is None
         assert "Срок вклада должен быть больше нуля" in caplog.text
 
 
 def test_excessive_percent(caplog):
-    with caplog.at_level(logging.ERROR):
+    with caplog.at_level(log.ERROR):
         deposit = Deposit(1000, 12, 2.0)
         assert deposit.total_amount() is None
         assert "Процентная ставка должна быть в пределах (0, 1]" in caplog.text
 
 
 def test_bank_deposit_negative_amount(bank, caplog):
-    with caplog.at_level(logging.ERROR):
+    with caplog.at_level(log.ERROR):
         total_amount = bank.deposit(-1000, 12)
         assert total_amount is None
         assert ("Failed to create deposit with amount=-1000 "
@@ -80,7 +72,7 @@ def test_bank_deposit_negative_amount(bank, caplog):
 
 
 def test_bank_deposit_zero_term(bank, caplog):
-    with caplog.at_level(logging.ERROR):
+    with caplog.at_level(log.ERROR):
         total_amount = bank.deposit(1000, 0)
         assert total_amount is None
         assert ("Failed to create deposit with amount=1000 "
@@ -88,7 +80,7 @@ def test_bank_deposit_zero_term(bank, caplog):
 
 
 def test_bank_deposit_excessive_percent(caplog):
-    with caplog.at_level(logging.ERROR):
+    with caplog.at_level(log.ERROR):
         deposit = Deposit(1000, 12, 2.0)
         total_amount = deposit.total_amount()
         assert total_amount is None

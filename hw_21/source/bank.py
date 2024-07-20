@@ -11,15 +11,7 @@
 #
 # https://myfin.by/wiki/term/kapitalizaciya-procentov
 
-import logging
-
-formatter = logging.Formatter(' [%(asctime)s] - %(levelname)s - %(message)s')
-handler = logging.StreamHandler()
-handler.setFormatter(formatter)
-
-logger = logging.getLogger(__name__)
-logger.addHandler(handler)
-logger.setLevel(logging.DEBUG)
+from hw_21.my_logger import logger as log
 
 
 class Deposit:
@@ -31,20 +23,20 @@ class Deposit:
         self.valid = self._validate_parameters()
 
         if not self._validate_parameters():
-            logger.error(f"Invalid parameters: amount={amount}, "
-                         f"term={term}, percent={percent}")
+            log.error(f"Invalid parameters: amount={amount}, "
+                      f"term={term}, percent={percent}")
 
     def _validate_parameters(self):
         valid = True
         if self.amount <= 0:
             valid = False
-            logger.error("Сумма вклада должна быть положительной")
+            log.error("Сумма вклада должна быть положительной")
         if self.term <= 0:
             valid = False
-            logger.error("Срок вклада должен быть больше нуля")
+            log.error("Срок вклада должен быть больше нуля")
         if self.percent <= 0 or self.percent > 1:
             valid = False
-            logger.error("Процентная ставка должна быть в пределах (0, 1]")
+            log.error("Процентная ставка должна быть в пределах (0, 1]")
         return valid
 
     # Расчет при ежемесячной капитализации:
@@ -71,8 +63,8 @@ class Bank:
         deposit = Deposit(N, R)
         total = deposit.total_amount()
         if total is None:
-            logger.error(f"Failed to create deposit "
-                         f"with amount={N} and term={R}")
+            log.error(f"Failed to create deposit "
+                      f"with amount={N} and term={R}")
         return total
 
 
