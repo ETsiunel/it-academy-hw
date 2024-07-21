@@ -63,7 +63,8 @@ class Bank:
         deposit = Deposit(N, R)
         total = deposit.total_amount()
         if total is None:
-            log.error(f"Failed to create deposit with amount={N} and term={R}")
+            log.error(f"Failed to create deposit with amount={N} "
+                      f"and term={R}")
         return total
 
 
