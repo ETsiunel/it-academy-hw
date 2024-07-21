@@ -1,3 +1,5 @@
+"""Conftest"""
+
 from hw_21.tests.my_logger import logger as log
 from constants import LOG_LEVELS
 
