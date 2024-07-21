@@ -22,10 +22,9 @@ def pytest_configure(config):
 
 
 # To run:
-#   pytest test_library.py --log-cli-level=ERROR --html=report_bank.html
-#       - вывод уровня ERROR в консоль, в html-отчете уровни по дефолту
-#   pytest test_library.py --log-level=ERROR --html=report_bank.html
-#       - вывод уровня ERROR в html-отчет, в консоли уровни по дефолту
-#   pytest test_bank.py --log-cli-level=ERROR --log-level=ERROR
-#                                             --html=report_bank.html
-#       - вывод уровня ERROR везде
+#   pytest test_library.py --log-cli-level=ERROR --html=report_library.html
+#       - вывод уровня ERROR и выше в консоль, в html-отчете уровни по дефолту
+#   pytest test_library.py --log-level=ERROR --html=report_library.html
+#       - вывод уровня ERROR и выше в html-отчет, в консоли уровни по дефолту
+#   pytest test_bank.py --html-log-level=ERROR --html=report_bank.html
+#       - вывод уровня ERROR и выше везде
