@@ -1,3 +1,5 @@
+"""Constants"""
+
 LOG_LEVELS = {
     "CRITICAL": 50,
     "ERROR": 40,
