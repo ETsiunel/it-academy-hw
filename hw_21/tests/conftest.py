@@ -24,5 +24,6 @@ def pytest_configure(config):
 #       - вывод уровня ERROR в консоль, в html-отчете уровни по дефолту
 #   pytest test_library.py --log-level=ERROR --html=report_bank.html
 #       - вывод уровня ERROR в html-отчет, в консоли уровни по дефолту
-#   pytest test_bank.py --log-cli-level=ERROR --log-level=ERROR --html=report_bank.html
+#   pytest test_bank.py --log-cli-level=ERROR --log-level=ERROR
+#                                             --html=report_bank.html
 #       - вывод уровня ERROR везде
