@@ -3,3 +3,4 @@ pycodestyle
 mypy
 ruff
 pylint
+pytest==8.2.2
