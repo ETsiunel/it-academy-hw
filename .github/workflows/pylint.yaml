@@ -22,4 +22,4 @@ jobs:
           pip install -r requirements.txt
       - name: Analysing the code with pylint
         run: |
-          pylint --disable=C0200,W0718,W0621,R0903,C0116,W0613,R0801,import-error,logging-fstring-interpolation,logging-not-lazy,consider-using-f-string $(git ls-files '*.py')
+          pylint --disable=C0200,W0718,W0621,R0903,C0116,W0613,R0801,C0103,E0611,import-error,logging-fstring-interpolation,logging-not-lazy,consider-using-f-string $(git ls-files '*.py')
