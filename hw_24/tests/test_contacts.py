@@ -251,7 +251,8 @@ def test_delete_contact(driver):
                 EC.presence_of_element_located((
                     By.CSS_SELECTOR, DeleteContactLocators.contact_table_body_row_delete)))
             contact_elements = (driver.find_elements
-                                (By.CSS_SELECTOR, DeleteContactLocators.contact_table_body_row_delete))
+                                (By.CSS_SELECTOR,
+                                 DeleteContactLocators.contact_table_body_row_delete))
             contact_found = any(
                 "Ann Smith" in contact.text and "annesmith@example.com"
                 in contact.text for contact in contact_elements)
