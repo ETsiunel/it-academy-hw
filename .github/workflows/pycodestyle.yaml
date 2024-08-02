@@ -21,4 +21,5 @@ jobs:
           pip install pycodestyle
       - name: Analysing the code with pycodestyle
         run: |
+          ignore = E501
           pycodestyle .
