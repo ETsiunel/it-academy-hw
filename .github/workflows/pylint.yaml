@@ -22,7 +22,4 @@ jobs:
           pip install -r requirements.txt
       - name: Analysing the code with pylint
         run: |
-          pylint --disable=C0200,W0718,W0621,R0903,C0116,W0613,R0801,C0103,E0611,import-error,
-          pointless-string-statement,logging-fstring-interpolation,logging-not-lazy,consider-using-f-string,
-          redefined-outer-name,missing-function-docstring,too-many-statements,too-many-locals,
-          too-few-public-methods,missing-class-docstring $(git ls-files '*.py')
+          pylint --disable=C0200,W0718,W0621,R0903,C0116,W0613,R0801,C0103,E0611,import-error,pointless-string-statement,logging-fstring-interpolation,logging-not-lazy,consider-using-f-string,redefined-outer-name,missing-function-docstring,too-many-statements,too-many-locals,too-few-public-methods,missing-class-docstring $(git ls-files '*.py')
