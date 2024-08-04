@@ -2,7 +2,6 @@
 
 
 class AddUserLocators:
-    URL_add_user = "https://thinking-tester-contact-list.herokuapp.com/login"
     signup_button = '#signup'
     firstname_input_signup = '#firstName'
     lastname_input_signup = '#lastName'
@@ -12,7 +11,6 @@ class AddUserLocators:
 
 
 class LoginLocators:
-    URL_login = "https://thinking-tester-contact-list.herokuapp.com/login"
     email_input_login = "#email"
     password_input_login = "#password"
     submit_button_login = '#submit'
@@ -23,7 +21,6 @@ class LogoutLocators:
 
 
 class AddContactLocators:
-    URL_add_contact = "https://thinking-tester-contact-list.herokuapp.com/contactList"
     add_new_contact_button = '#add-contact'
     firstname_input_add_contact = '#firstName'
     lastname_input_add_contact = '#lastName'

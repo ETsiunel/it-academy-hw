@@ -1,6 +1,4 @@
 """Homework_24"""
-
-
 import time
 import random
 import string
@@ -13,9 +11,11 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
+from hw_24.source.urls import Urls
 from hw_24.source.locators import (AddUserLocators, LoginLocators,
                                    LogoutLocators, AddContactLocators,
                                    UpdateContactLocators, DeleteContactLocators)
+from hw_24.source.test_data import TestDataUser, TestDataAddContact, TestDataUpdateContact
 
 
 @pytest.fixture(scope="module")
@@ -37,17 +37,17 @@ EMAIL = random_char(7) + '@test.com'
 PASSWORD = random_char(11)
 
 
-def test_signup(driver):
-    driver.get(AddUserLocators.URL_add_user)
+def test_precondition_signup(driver):
+    driver.get(Urls.URL_login)
     driver.find_element(By.CSS_SELECTOR, AddUserLocators.signup_button).click()
 
     first_name = driver.find_element(By.CSS_SELECTOR, AddUserLocators.firstname_input_signup)
     first_name.clear()
-    first_name.send_keys("TestFirstName")
+    first_name.send_keys(TestDataUser.firstname_user)
 
     last_name = driver.find_element(By.CSS_SELECTOR, AddUserLocators.lastname_input_signup)
     last_name.clear()
-    last_name.send_keys("TestLastName")
+    last_name.send_keys(TestDataUser.lastname_user)
 
     email = driver.find_element(By.CSS_SELECTOR, AddUserLocators.email_input_signup)
     email.clear()
@@ -62,8 +62,8 @@ def test_signup(driver):
     driver.find_element(By.CSS_SELECTOR, LogoutLocators.logout_button).click()
 
 
-def test_login(driver):
-    driver.get(LoginLocators.URL_login)
+def test_precondition_login(driver):
+    driver.get(Urls.URL_login)
 
     email = driver.find_element(By.CSS_SELECTOR, LoginLocators.email_input_login)
     email.clear()
@@ -77,57 +77,55 @@ def test_login(driver):
 
 
 def test_add_new_contact(driver):
-    test_login(driver)
-
-    driver.get(AddContactLocators.URL_add_contact)
+    driver.get(Urls.URL_contact_list)
     driver.find_element(By.CSS_SELECTOR, AddContactLocators.add_new_contact_button).click()
 
     first_name = driver.find_element(By.CSS_SELECTOR,
                                      AddContactLocators.firstname_input_add_contact)
     first_name.clear()
-    first_name.send_keys("John")
+    first_name.send_keys(TestDataAddContact.firstname_contact)
 
     last_name = driver.find_element(By.CSS_SELECTOR, AddContactLocators.lastname_input_add_contact)
     last_name.clear()
-    last_name.send_keys("Doe")
+    last_name.send_keys(TestDataAddContact.lastname_contact)
 
     birthdate = driver.find_element(By.CSS_SELECTOR, AddContactLocators.birthdate_add_contact)
     birthdate.clear()
-    birthdate.send_keys("2000-01-01")
+    birthdate.send_keys(TestDataAddContact.birthdate_contact)
 
     email = driver.find_element(By.CSS_SELECTOR, AddContactLocators.email_input_add_contact)
     email.clear()
-    email.send_keys("johndoe@example.com")
+    email.send_keys(TestDataAddContact.email_contact)
 
     phone = driver.find_element(By.CSS_SELECTOR, AddContactLocators.phone_input_add_contact)
     phone.clear()
-    phone.send_keys("1234567890")
+    phone.send_keys(TestDataAddContact.phone_contact)
 
     street1 = driver.find_element(By.CSS_SELECTOR, AddContactLocators.street1_input_add_contact)
     street1.clear()
-    street1.send_keys("123 Main St")
+    street1.send_keys(TestDataAddContact.street1_contact)
 
     street2 = driver.find_element(By.CSS_SELECTOR, AddContactLocators.street2_input_add_contact)
     street2.clear()
-    street2.send_keys("Apt 4B")
+    street2.send_keys(TestDataAddContact.street2_contact)
 
     city = driver.find_element(By.CSS_SELECTOR, AddContactLocators.city_input_add_contact)
     city.clear()
-    city.send_keys("Anytown")
+    city.send_keys(TestDataAddContact.city_contact)
 
     state_province = driver.find_element(By.CSS_SELECTOR,
                                          AddContactLocators.stateprovince_input_add_contact)
     state_province.clear()
-    state_province.send_keys("State")
+    state_province.send_keys(TestDataAddContact.state_contact)
 
     postal_code = driver.find_element(By.CSS_SELECTOR,
                                       AddContactLocators.postalcode_input_add_contact)
     postal_code.clear()
-    postal_code.send_keys("12345")
+    postal_code.send_keys(TestDataAddContact.postalcode_contact)
 
     country = driver.find_element(By.CSS_SELECTOR, AddContactLocators.country_input_add_contact)
     country.clear()
-    country.send_keys("Country")
+    country.send_keys(TestDataAddContact.country_contact)
 
     driver.find_element(By.CSS_SELECTOR, AddContactLocators.submit_button_add_contact).click()
 
@@ -141,18 +139,19 @@ def test_add_new_contact(driver):
         contact_found = False
 
         for contact in contact_elements:
-            if "John Doe" in contact.text and "johndoe@example.com" in contact.text:
+            if (TestDataAddContact.firstname_contact in contact.text
+                    and TestDataAddContact.lastname_contact in contact.text):
                 contact_found = True
                 break
 
-        assert contact_found, "Contact John Doe not found."
+        assert contact_found, "Contact not found."
 
     except TimeoutException:
         pytest.fail("Timed out waiting for contact to appear.")
 
 
 def test_update_contact(driver):
-    driver.get(AddContactLocators.URL_add_contact)
+    driver.get(Urls.URL_contact_list)
     contacts = driver.find_elements(By.CSS_SELECTOR,
                                     UpdateContactLocators.contact_table_body_row_edit)
 
@@ -164,49 +163,49 @@ def test_update_contact(driver):
         first_name = driver.find_element(By.XPATH,
                                          UpdateContactLocators.firstname_input_edit_contact)
         first_name.clear()
-        first_name.send_keys("Ann")
+        first_name.send_keys(TestDataUpdateContact.firstname_contact)
 
         last_name = driver.find_element(By.XPATH, UpdateContactLocators.lastname_input_edit_contact)
         last_name.clear()
-        last_name.send_keys("Smith")
+        last_name.send_keys(TestDataUpdateContact.lastname_contact)
 
         birthdate = driver.find_element(By.XPATH, UpdateContactLocators.birthdate_edit_contact)
         birthdate.clear()
-        birthdate.send_keys("2000-05-05")
+        birthdate.send_keys(TestDataUpdateContact.birthdate_contact)
 
         email = driver.find_element(By.XPATH, UpdateContactLocators.email_input_edit_contact)
         email.clear()
-        email.send_keys("annesmith@example.com")
+        email.send_keys(TestDataUpdateContact.email_contact)
 
         phone = driver.find_element(By.XPATH, UpdateContactLocators.phone_input_edit_contact)
         phone.clear()
-        phone.send_keys("0987654321")
+        phone.send_keys(TestDataUpdateContact.phone_contact)
 
         street1 = driver.find_element(By.XPATH, UpdateContactLocators.street1_input_edit_contact)
         street1.clear()
-        street1.send_keys("456 Main St")
+        street1.send_keys(TestDataUpdateContact.street1_contact)
 
         street2 = driver.find_element(By.XPATH, UpdateContactLocators.street2_input_edit_contact)
         street2.clear()
-        street2.send_keys("Apt 5C")
+        street2.send_keys(TestDataUpdateContact.street2_contact)
 
         city = driver.find_element(By.XPATH, UpdateContactLocators.city_input_edit_contact)
         city.clear()
-        city.send_keys("Othertown")
+        city.send_keys(TestDataUpdateContact.city_contact)
 
         state_province = driver.find_element(By.XPATH,
                                              UpdateContactLocators.stateprovince_input_edit_contact)
         state_province.clear()
-        state_province.send_keys("Province")
+        state_province.send_keys(TestDataUpdateContact.state_contact)
 
         postal_code = driver.find_element(By.XPATH,
                                           UpdateContactLocators.postalcode_input_edit_contact)
         postal_code.clear()
-        postal_code.send_keys("54321")
+        postal_code.send_keys(TestDataUpdateContact.postalcode_contact)
 
         country = driver.find_element(By.XPATH, UpdateContactLocators.country_input_edit_contact)
         country.clear()
-        country.send_keys("NewCountry")
+        country.send_keys(TestDataUpdateContact.country_contact)
 
         driver.find_element(By.CSS_SELECTOR,
                             UpdateContactLocators.submit_button_edit_contact).click()
@@ -223,11 +222,12 @@ def test_update_contact(driver):
             contact_found = False
 
             for contact in contact_elements:
-                if "Ann Smith" in contact.text and "annesmith@example.com" in contact.text:
+                if (TestDataUpdateContact.firstname_contact in contact.text
+                        and TestDataUpdateContact.lastname_contact in contact.text):
                     contact_found = True
                     break
 
-            assert contact_found, "Contact Ann Smith not found."
+            assert contact_found, "Contact not found."
 
         except TimeoutException:
             pytest.fail("Timed out waiting for contact to appear.")
@@ -237,7 +237,7 @@ def test_update_contact(driver):
 
 
 def test_delete_contact(driver):
-    driver.get(AddContactLocators.URL_add_contact)
+    driver.get(Urls.URL_contact_list)
     contacts = driver.find_elements(
         By.CSS_SELECTOR, DeleteContactLocators.contact_table_body_row_delete)
     if contacts:
@@ -253,18 +253,14 @@ def test_delete_contact(driver):
             contact_elements = (driver.find_elements
                                 (By.CSS_SELECTOR,
                                  DeleteContactLocators.contact_table_body_row_delete))
-            contact_found = any(
-                "Ann Smith" in contact.text and "annesmith@example.com"
-                in contact.text for contact in contact_elements)
+            contact_found = any(TestDataUpdateContact.firstname_contact in contact.text
+                                and TestDataUpdateContact.lastname_contact in contact.text
+                                for contact in contact_elements)
 
-            assert not contact_found, "Contact Ann Smith was not deleted."
+            assert not contact_found, "Contact was not deleted."
 
         except TimeoutException:
             pytest.fail("Timed out waiting for deleting contact")
 
     else:
         pytest.fail("No contacts available to delete.")
-
-
-if __name__ == "__main__":
-    pytest.main()
