@@ -11,7 +11,7 @@ class Urls:
 
 
 class UserCredentials:
-    def random_char(char_num):
+    def random_char(self, char_num):
         return ''.join(random.choice(string.ascii_letters) for _ in range(char_num))
 
     EMAIL = random_char(7) + '@test.com'
