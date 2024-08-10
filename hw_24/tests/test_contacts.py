@@ -11,11 +11,11 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
-from hw_24.source.urls import Urls
+from hw_24.tests.urls import Urls
 from hw_24.source.locators import (AddUserLocators, LoginLocators,
                                    LogoutLocators, AddContactLocators,
                                    UpdateContactLocators, DeleteContactLocators)
-from hw_24.source.test_data import TestDataUser, TestDataAddContact, TestDataUpdateContact
+from hw_24.tests.test_data import TestDataUser, TestDataAddContact, TestDataUpdateContact
 
 
 @pytest.fixture(scope="module")
