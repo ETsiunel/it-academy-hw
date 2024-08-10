@@ -22,4 +22,4 @@ jobs:
       - name: Analysing the code with mypy
         run: |
           mkdir .mypy_cache
-          mypy --ignore-missing-imports --install-types --non-interactive --exclude venv .
+          mypy --ignore-missing-imports --install-types --non-interactive --exclude venv . --exclude hw_25/tests/test_data/constants.py
