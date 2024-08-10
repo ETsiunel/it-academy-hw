@@ -16,4 +16,3 @@ class AddContactLocators:
     country_input = '#country'
     submit_button_add_contact = '#submit'
     contact_table_body_row_add = '[class="contactTableBodyRow"]'
-
