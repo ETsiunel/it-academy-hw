@@ -22,4 +22,4 @@ jobs:
       - name: Analysing the code with mypy
         run: |
           mkdir .mypy_cache
-          mypy --ignore-missing-imports --ignore-arg-type --install-types --non-interactive --exclude venv .
+          mypy --ignore-arg-type --install-types --non-interactive --exclude venv .
