@@ -20,7 +20,7 @@ class ContactListPage(BasePage):
     def update_contact(self, contact_data):
         contacts = self.driver.find_elements(By.CSS_SELECTOR, UpdateContactLocators.contact_table_body_row_edit)
         if contacts:
-            contacts[0].click()  # Выберите контакт для редактирования
+            contacts[0].click()
             self.driver.find_element(By.CSS_SELECTOR, UpdateContactLocators.edit_contact_button).click()
             self._fill_contact_form(contact_data, is_update=True)
             submit_button = self.driver.find_element(By.CSS_SELECTOR, UpdateContactLocators.submit_button_edit_contact)

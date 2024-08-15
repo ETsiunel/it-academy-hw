@@ -12,10 +12,14 @@ class LoginPage(BasePage):
         self.driver.find_element(By.CSS_SELECTOR, LoginLocators.signup_button).click()
 
     def login(self, email, password):
-        self.driver.find_element(By.CSS_SELECTOR, LoginLocators.email_input_login).clear()
-        self.driver.find_element(By.CSS_SELECTOR, LoginLocators.email_input_login).send_keys(email)
-        self.driver.find_element(By.CSS_SELECTOR, LoginLocators.password_input_login).clear()
-        self.driver.find_element(By.CSS_SELECTOR, LoginLocators.password_input_login).send_keys(password)
+        email_input = self.driver.find_element(By.CSS_SELECTOR, LoginLocators.email_input_login)
+        email_input.clear()
+        email_input.send_keys(email)
+
+        password_input = self.driver.find_element(By.CSS_SELECTOR, LoginLocators.password_input_login)
+        password_input.clear()
+        password_input.send_keys(password)
+
         self.driver.find_element(By.CSS_SELECTOR, LoginLocators.submit_button_login).click()
 
     def is_logged_in(self):
