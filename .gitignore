@@ -22,6 +22,6 @@ venv/
 .test_log.log
 htmlcov/
 .cache/
-*.html
+#*.html
 *.css
 *.xml
