@@ -4,15 +4,13 @@
 import logging
 import pytest
 from selenium import webdriver
-from selenium.common import TimeoutException
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from hw_25.tests.test_data.constants import Urls, UserCredentials
-from hw_25.tests.test_data.test_data import TestDataUser, TestDataAddContact, TestDataUpdateContact
+from hw_25.tests.test_data.test_data import (TestDataUser, TestDataAddContact,
+                                             TestDataUpdateContact)
 from hw_25.resources.pages.login_page import LoginPage
 from hw_25.resources.pages.signup_page import SignupPage
 from hw_25.resources.pages.contactlist_page import ContactListPage
@@ -20,7 +18,6 @@ from hw_25.resources.locators.logout_locators import LogoutLocators
 from hw_25.resources.locators.add_contact_locators import AddContactLocators
 from hw_25.resources.locators.update_contact_locators import UpdateContactLocators
 from hw_25.resources.locators.delete_contact_locators import DeleteContactLocators
-
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -31,6 +28,7 @@ def driver():
     chrome_options.add_argument('--start-maximized')
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=chrome_options)
+    driver.implicitly_wait(10)
     yield driver
     driver.quit()
 
@@ -79,25 +77,15 @@ def test_add_new_contact(driver):
 
     contact_list_page.add_new_contact(contact_data)
 
-    try:
-        WebDriverWait(driver, 10).until(
-            EC.presence_of_all_elements_located((By.CSS_SELECTOR,
-                                                 AddContactLocators.contact_table_body_row_add))
-        )
-        contact_elements = driver.find_elements(By.CSS_SELECTOR,
-                                                AddContactLocators.contact_table_body_row_add)
-        contact_found = False
+    contact_elements = driver.find_elements(By.CSS_SELECTOR,
+                                            AddContactLocators.contact_table_body_row_add)
+    contact_found = any(
+        TestDataAddContact.firstname_contact in contact.text and
+        TestDataAddContact.lastname_contact in contact.text
+        for contact in contact_elements
+    )
 
-        for contact in contact_elements:
-            if (TestDataAddContact.firstname_contact in contact.text
-                    and TestDataAddContact.lastname_contact in contact.text):
-                contact_found = True
-                break
-
-        assert contact_found, "Contact not found."
-
-    except TimeoutException:
-        pytest.fail("Timed out waiting for contact to appear.")
+    assert contact_found, "Contact not found."
 
     logging.info("Add new contact test completed successfully")
 
@@ -122,25 +110,15 @@ def test_update_contact(driver):
 
     contact_list_page.update_contact(contact_data)
 
-    try:
-        WebDriverWait(driver, 10).until(
-            EC.presence_of_all_elements_located(
-                (By.CSS_SELECTOR, UpdateContactLocators.contact_table_body_row_edit))
-        )
-        contact_elements = driver.find_elements(
-            By.CSS_SELECTOR, UpdateContactLocators.contact_table_body_row_edit)
-        contact_found = False
+    contact_elements = driver.find_elements(By.CSS_SELECTOR,
+                                            UpdateContactLocators.contact_table_body_row_edit)
+    contact_found = any(
+        TestDataUpdateContact.firstname_contact in contact.text and
+        TestDataUpdateContact.lastname_contact in contact.text
+        for contact in contact_elements
+    )
 
-        for contact in contact_elements:
-            if (TestDataUpdateContact.firstname_contact in contact.text
-                    and TestDataUpdateContact.lastname_contact in contact.text):
-                contact_found = True
-                break
-
-        assert contact_found, "Contact not found."
-
-    except TimeoutException:
-        pytest.fail("Timed out waiting for contact to appear.")
+    assert contact_found, "Contact not found."
 
     logging.info("Update contact test completed successfully")
 
@@ -151,20 +129,14 @@ def test_delete_contact(driver):
     contact_list_page = ContactListPage(driver)
     contact_list_page.delete_contact()
 
-    try:
-        WebDriverWait(driver, 10).until_not(
-            EC.presence_of_element_located((
-                By.CSS_SELECTOR, DeleteContactLocators.contact_table_body_row_delete)))
-        contact_elements = (driver.find_elements
-                            (By.CSS_SELECTOR,
-                             DeleteContactLocators.contact_table_body_row_delete))
-        contact_found = any(TestDataUpdateContact.firstname_contact in contact.text
-                            and TestDataUpdateContact.lastname_contact in contact.text
-                            for contact in contact_elements)
+    contact_elements = driver.find_elements(By.CSS_SELECTOR,
+                                            DeleteContactLocators.contact_table_body_row_delete)
+    contact_found = any(
+        TestDataUpdateContact.firstname_contact in contact.text and
+        TestDataUpdateContact.lastname_contact in contact.text
+        for contact in contact_elements
+    )
 
-        assert not contact_found, "Contact was not deleted."
-
-    except TimeoutException:
-        pytest.fail("Timed out waiting for deleting contact")
+    assert not contact_found, "Contact was not deleted."
 
     logging.info("Delete contact test completed successfully")
