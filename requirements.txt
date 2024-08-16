@@ -8,3 +8,5 @@ robotframework~=7.0.1
 bank~=0.0.1
 Library~=0.0.0
 selenium~=4.23.1
+requests~=2.32.3
+jsonschema~=4.23.0
