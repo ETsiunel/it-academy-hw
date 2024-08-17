@@ -3,8 +3,9 @@ pycodestyle
 mypy
 ruff
 pylint
-pytest==8.2.2
+pytest~=8.3.2
 robotframework~=7.0.1
 bank~=0.0.1
 Library~=0.0.0
 selenium~=4.23.1
+Flask~=3.0.3
