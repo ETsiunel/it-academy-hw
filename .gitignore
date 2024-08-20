@@ -17,7 +17,6 @@ venv/
 .github/.DS_Store
 .github/workflows/.DS_Store
 
-
 # pytest
 .test_log.log
 htmlcov/

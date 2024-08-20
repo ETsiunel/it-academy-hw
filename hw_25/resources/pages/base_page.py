@@ -20,3 +20,8 @@ class BasePage:
             EC.visibility_of_all_elements_located((by, value))
         )
         return elements
+
+    def wait_page_to_load(self):
+        WebDriverWait(self.driver, 10).until(
+            lambda driver: driver.execute_script('return document.readyState') == 'complete'
+        )
