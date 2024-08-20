@@ -1,7 +1,7 @@
 """Contact List page"""
 
 
-import time
+# import time
 from selenium.webdriver.common.by import By
 from hw_25.resources.pages.base_page import BasePage
 from hw_25.resources.locators.add_contact_locators import AddContactLocators
