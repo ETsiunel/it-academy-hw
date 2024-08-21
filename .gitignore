@@ -16,12 +16,12 @@ venv/
 .DS_Store
 .github/.DS_Store
 .github/workflows/.DS_Store
-
+hw_27/config.json
 
 # pytest
 .test_log.log
 htmlcov/
 .cache/
-#*.html
+*.html
 *.css
 *.xml

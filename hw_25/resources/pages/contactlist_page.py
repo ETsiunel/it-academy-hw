@@ -1,7 +1,7 @@
 """Contact List page"""
 
 
-import time
+# import time
 from selenium.webdriver.common.by import By
 from hw_25.resources.pages.base_page import BasePage
 from hw_25.resources.locators.add_contact_locators import AddContactLocators
@@ -46,6 +46,7 @@ class ContactListPage(BasePage):
             raise Exception("No contacts available to delete.")
 
     def _fill_contact_form(self, contact_data, is_update=False):
+        self.wait_page_to_load()  # Ожидание полной загрузки страницы
         locators = UpdateContactLocators if is_update else AddContactLocators
 
         def fill_field(locator, value):
@@ -53,11 +54,11 @@ class ContactListPage(BasePage):
             element.clear()
             element.send_keys(value)
 
-        time.sleep(1)
+        # time.sleep(1)
         fill_field(locators.firstname_input, contact_data['first_name'])
-        time.sleep(1)
+        # time.sleep(1)
         fill_field(locators.lastname_input, contact_data['last_name'])
-        time.sleep(1)
+        # time.sleep(1)
         fill_field(locators.birthdate_input, contact_data['birthdate'])
         fill_field(locators.email_input, contact_data['email'])
         fill_field(locators.phone_input, contact_data['phone'])
